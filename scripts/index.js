@@ -17,7 +17,6 @@ const deactivationPlayer = () => {
 }
 
 playerBtn.forEach((btn, i) => {
-    console.log(btn)
     btn.addEventListener('click', () => {
         deactivationPlayer()
         btn.classList.add('active')

@@ -7,6 +7,10 @@ export const videoPlayerInit = () => {
     const videoTimePassed = document.querySelector('.video-time__passed')
     const videoProgress = document.querySelector('.video-progress')
     const videoTimeTotal = document.querySelector('.video-time__total')
+    const videoVolume = document.querySelector('.video-volume__range')
+    const volumeDown = document.querySelector('.fa-volume-down')
+    const volumeUp = document.querySelector('.fa-volume-up')
+
 
     const toggleIcon = () => {
         if (videoPlayer.paused) {
@@ -35,6 +39,19 @@ export const videoPlayerInit = () => {
     }
 
     const addZero = n => n < 10 ? '0' + n : n
+
+    const volumeDownBtn = () => {
+        videoPlayer.muted = true
+        volumeDown.classList.remove('fa-volume-down')
+        volumeDown.classList.add('fa-volume-off')
+        videoVolume.value = 0
+    }
+
+    const volumeUpBtn = () => {
+        videoPlayer.muted = false
+        videoVolume.value = 80
+        videoPlayer.volume =  videoVolume.value / 100
+    }
 
     videoButtonPlay.addEventListener('click', togglePlay)
     videoPlayer.addEventListener('click', togglePlay)
@@ -67,5 +84,18 @@ export const videoPlayerInit = () => {
 
     })
 
+    videoVolume.addEventListener('input', () => {
+        videoPlayer.volume = videoVolume.value / 100
+        videoPlayer.muted = false
+
+        if (videoVolume.value >= 1) {
+            volumeDown.classList.remove('fa-volume-off')
+            volumeDown.classList.add('fa-volume-down')
+        }
+    })
+
+    volumeDown.addEventListener('click', volumeDownBtn)
+
+    volumeUp.addEventListener('click', volumeUpBtn)
 }
 
